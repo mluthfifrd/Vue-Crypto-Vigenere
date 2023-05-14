@@ -81,7 +81,7 @@ onMounted(() => {
                   type="text"
                   name="message"
                   id="message"
-                  placeholder="Masukan Plain Teks Disini"
+                  placeholder="Masukan Plain Teks atau Cipher Teks Disini"
                   v-model="message"
                   class="block bg-gray-200 w-full rounded-md border-0 py-1.5 px-1.5 text-gray-950 ring-1 ring-gray-600 placeholder:text-gray-400 focus:outline-none focus:ring focus:ring-gray-800"
                 />
@@ -119,7 +119,7 @@ onMounted(() => {
                   id="result"
                   :value="result"
                   placeholder="Hasil Enkripsi dan Dekripsi"
-                  class="block placeholder:text-gray-400 w-full rounded-md border-0 py-1.5 px-1.5 text-gray-600 shadow-sm ring-1 ring-inset ring-gray-600"
+                  class="block placeholder:text-gray-500 w-full rounded-md border-0 py-1.5 px-1.5 text-gray-600 shadow-sm ring-1 ring-inset ring-gray-600"
                 />
               </div>
             </div>
