@@ -132,7 +132,6 @@ onMounted(() => {
                   class="block bg-gray-200 w-full rounded-md border-0 py-1.5 px-1.5 text-gray-950 ring-1 ring-gray-600 placeholder:text-gray-400 focus:outline-none focus:ring focus:ring-gray-800"
                 />
               </div>
-              <p class="text-gray-800">*Ditulis dengan huruf kapital</p>
             </div>
 
             <div class="col-span-6">
@@ -150,7 +149,6 @@ onMounted(() => {
                   class="block bg-gray-200 w-full rounded-md border-0 py-1.5 px-1.5 text-gray-950 ring-1 ring-gray-600 placeholder:text-gray-400 focus:outline-none focus:ring focus:ring-gray-800"
                 />
               </div>
-              <p class="text-gray-800">*Ditulis dengan huruf kapital dan tanpa spasi</p>
             </div>
 
             <div class="col-span-6">
