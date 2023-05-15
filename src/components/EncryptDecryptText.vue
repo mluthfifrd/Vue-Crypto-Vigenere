@@ -5,57 +5,103 @@ const currentDate = new Date().getFullYear()
 const message = ref()
 const key = ref()
 const result = ref()
+const encrypted = ref('')
+const decrypted = ref('')
 
-function vigenereEncrypt() {
-  var ciphertext = ''
-  var j = 0
-
-  for (let i = 0; i < message.value.toUpperCase().length; i++) {
-    let charCode = message.value.toUpperCase().charCodeAt(i)
-    if (charCode >= 65 && charCode <= 90) {
-      let keyChar = key.value.charCodeAt(j % key.value.length) - 65
-      let encryptedCharCode = ((charCode - 65 + keyChar) % 26) + 65
-      ciphertext += String.fromCharCode(encryptedCharCode)
-      j++
-      // } else if (charCode >= 97 && charCode <= 122) {
-      //   let keyChar = key.value.charCodeAt(j % key.value.length) - 97
-      //   let encryptedCharCode = ((charCode - 97 + keyChar) % 26) + 97
-      //   ciphertext += String.fromCharCode(encryptedCharCode)
-      //   j++
-    } else if (charCode <= 64) {
-      result.value += ciphertext += message.value.toUpperCase().charAt(i)
-    }
+function isUpperCase(letter) {
+  const l = letter.charCodeAt()
+  if (l > 64 && l < 91) {
+    return true
+  } else {
+    return false
   }
-
-  return (result.value = ciphertext)
 }
 
-function vigenereDecrypt() {
-  var plaintext = ''
-  var j = 0
+function isLowerCase(letter) {
+  const l = letter.charCodeAt()
+  if (l > 96 && l < 123) {
+    return true
+  } else {
+    return false
+  }
+}
 
-  for (let i = 0; i < message.value.toUpperCase().length; i++) {
-    let charCode = message.value.toUpperCase().charCodeAt(i)
-    if (charCode >= 65 && charCode <= 90) {
-      let keyChar = key.value.charCodeAt(j % key.value.length) - 65
-      let decryptedCharCode = ((charCode - 65 - keyChar + 26) % 26) + 65
-      plaintext += String.fromCharCode(decryptedCharCode)
+function mod(n, m) {
+  return ((n % m) + m) % m
+}
+
+function encrypt(message, key) {
+  let encrypted = ''
+  let j = 0
+  for (let i = 0; i < message.length; i++) {
+    let currentLetter = message[i]
+    const A = 65
+    const a = 97
+
+    if (isUpperCase(currentLetter)) {
+      let Pi = currentLetter.charCodeAt(0) - A
+      let Ki = key[j % key.length].toUpperCase().charCodeAt() - A
+      let upperLetter = mod(Pi + Ki, 26)
+
+      encrypted += String.fromCharCode(upperLetter + A)
+
       j++
-      // } else if (charCode >= 97 && charCode <= 122) {
-      //   let keyChar = key.value.charCodeAt(j % key.value.length) - 97
-      //   let decryptedCharCode = ((charCode - 97 - keyChar + 26) % 26) + 97
-      //   plaintext += String.fromCharCode(decryptedCharCode)
-      //   j++
+    } else if (isLowerCase(currentLetter)) {
+      let Pi = currentLetter.charCodeAt() - a
+      let Ki = key[j % key.length].toLowerCase().charCodeAt() - a
+      let lowerLetter = mod(Pi + Ki, 26)
+
+      encrypted += String.fromCharCode(lowerLetter + a)
+
+      j++
     } else {
-      result.value += plaintext += message.value.toUpperCase().charAt(i)
+      encrypted += currentLetter
     }
   }
+  return (result.value = encrypted)
+}
 
-  return (result.value = plaintext)
+function decrypt(enc, key) {
+  let decrypted = ''
+  let j = 0
+  for (let i = 0; i < enc.length; i++) {
+    let currentLetter = enc[i]
+    const A = 65
+    const a = 97
+
+    if (isUpperCase(currentLetter)) {
+      let Ci = currentLetter.charCodeAt(0) - A
+      let Ki = key[j % key.length].toUpperCase().charCodeAt() - A
+      let upperLetter = mod(Ci - Ki, 26)
+
+      decrypted += String.fromCharCode(upperLetter + A)
+
+      j++
+    } else if (isLowerCase(currentLetter)) {
+      let Ci = currentLetter.charCodeAt() - a
+      let Ki = key[j % key.length].toLowerCase().charCodeAt() - a
+      let lowerLetter = mod(Ci - Ki, 26)
+
+      decrypted += String.fromCharCode(lowerLetter + a)
+
+      j++
+    } else {
+      decrypted += currentLetter
+    }
+  }
+  return (result.value = decrypted)
+}
+
+function handleEncryptClick() {
+  encrypted.value = encrypt(message.value, key.value)
+}
+
+function handleDecryptClick() {
+  decrypted.value = decrypt(encrypted.value, key.value)
 }
 
 onMounted(() => {
-  currentDate, message, key, vigenereEncrypt, vigenereDecrypt
+  currentDate, message, key, encrypt, decrypt, encrypted, decrypted
 })
 </script>
 
@@ -126,13 +172,13 @@ onMounted(() => {
 
             <div class="col-span-6">
               <button
-                @click.prevent="vigenereEncrypt"
+                @click.prevent="handleEncryptClick"
                 class="p-3 mr-3 bg-green-400 text-gray-900 hover:bg-green-500 rounded-md"
               >
                 Enkripsi
               </button>
               <button
-                @click.prevent="vigenereDecrypt"
+                @click.prevent="handleDecryptClick"
                 class="p-3 bg-green-400 text-gray-900 hover:bg-green-500 rounded-md"
               >
                 Dekripsi
