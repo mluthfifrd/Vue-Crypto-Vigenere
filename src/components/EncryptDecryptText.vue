@@ -162,7 +162,7 @@ onMounted(() => {
                   name="result"
                   id="result"
                   :value="result"
-                  placeholder="Hasil Enkripsi dan Dekripsi"
+                  placeholder="Hasil Enkripsi atau Dekripsi"
                   class="block placeholder:text-gray-500 w-full rounded-md border-0 py-1.5 px-1.5 text-gray-600 shadow-sm ring-1 ring-inset ring-gray-600"
                 />
               </div>
