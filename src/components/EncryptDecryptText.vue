@@ -109,7 +109,7 @@ onMounted(() => {
   <div class="container mx-auto">
     <div class="w-full max-w my-10">
       <form
-        class="bg-gradient-to-r from-green-300 to-green-400 backdrop-blur shadow-md rounded-md px-8 pt-6 pb-8 mb-4"
+        class="bg-gradient-to-r from-green-400 to-green-300 backdrop-blur shadow-md rounded-md px-8 pt-6 pb-8 mb-4"
       >
         <div>
           <h1 class="text-2xl text-center font-semibold leading-7 text-gray-950">
