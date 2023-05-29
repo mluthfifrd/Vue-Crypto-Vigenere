@@ -4,7 +4,8 @@ import { ref, onMounted } from 'vue'
 const currentDate = new Date().getFullYear()
 const message = ref()
 const key = ref()
-const result = ref()
+const resultEncrypted = ref()
+const resultDecrypted = ref()
 const encrypted = ref('')
 const decrypted = ref('')
 
@@ -58,7 +59,7 @@ function encrypt(message, key) {
       encrypted += currentLetter
     }
   }
-  return (result.value = encrypted)
+  return (resultEncrypted.value = encrypted)
 }
 
 function decrypt(enc, key) {
@@ -89,7 +90,7 @@ function decrypt(enc, key) {
       decrypted += currentLetter
     }
   }
-  return (result.value = decrypted)
+  return (resultDecrypted.value = decrypted)
 }
 
 function handleEncryptClick() {
@@ -113,13 +114,13 @@ onMounted(() => {
       >
         <div>
           <h1 class="text-2xl text-center font-semibold leading-7 text-gray-950">
-            Enkripsi dan Dekripsi Teks
+            Proses Enkripsi
           </h1>
 
           <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
             <div class="col-span-6">
               <label for="message" class="block text-base font-medium leading-6 text-gray-950"
-                >Pesan</label
+                >Pesan/ Plaintext</label
               >
               <div class="mt-2">
                 <input
@@ -153,7 +154,7 @@ onMounted(() => {
 
             <div class="col-span-6">
               <label for="result" class="block text-base font-medium leading-6 text-gray-950"
-                >Hasil</label
+                >Hasil Enkripsi/ Ciphertext</label
               >
               <div class="mt-2">
                 <input
@@ -161,9 +162,9 @@ onMounted(() => {
                   type="text"
                   name="result"
                   id="result"
-                  :value="result"
-                  placeholder="Hasil Enkripsi atau Dekripsi"
-                  class="block placeholder:text-gray-500 w-full rounded-md border-0 py-1.5 px-1.5 text-gray-600 shadow-sm ring-1 ring-inset ring-gray-600"
+                  :value="resultEncrypted"
+                  placeholder="Hasil Enkripsi"
+                  class="block placeholder:text-gray-500 w-full rounded-md border-0 py-1.5 px-1.5 text-gray-950 shadow-sm ring-1 ring-inset ring-gray-600"
                 />
               </div>
             </div>
@@ -175,6 +176,72 @@ onMounted(() => {
               >
                 Enkripsi
               </button>
+            </div>
+          </div>
+        </div>
+      </form>
+
+      <form
+        class="bg-gradient-to-r from-green-400 to-green-300 backdrop-blur shadow-md rounded-md px-8 pt-6 pb-8 mb-4"
+      >
+        <div>
+          <h1 class="text-2xl text-center font-semibold leading-7 text-gray-950">
+            Proses Dekripsi
+          </h1>
+
+          <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+            <div class="col-span-6">
+              <label for="message" class="block text-base font-medium leading-6 text-gray-950"
+                >Hasil Enkripsi/ Ciphertext</label
+              >
+              <div class="mt-2">
+                <input
+                  disabled
+                  type="text"
+                  name="message"
+                  id="message"
+                  placeholder="Hasil Enkripsi"
+                  v-model="resultEncrypted"
+                  class="block w-full rounded-md border-0 py-1.5 px-1.5 text-gray-950 ring-1 ring-gray-600 placeholder:text-gray-500 focus:outline-none focus:ring focus:ring-gray-800"
+                />
+              </div>
+            </div>
+
+            <div class="col-span-6">
+              <label for="key" class="block text-base font-medium leading-6 text-gray-950"
+                >Key</label
+              >
+              <div class="mt-2">
+                <input
+                  pattern="[A-Z\s]+"
+                  type="text"
+                  name="key"
+                  id="key"
+                  placeholder="Masukan Key Disini"
+                  v-model="key"
+                  class="block bg-gray-200 w-full rounded-md border-0 py-1.5 px-1.5 text-gray-950 ring-1 ring-gray-600 placeholder:text-gray-400 focus:outline-none focus:ring focus:ring-gray-800"
+                />
+              </div>
+            </div>
+
+            <div class="col-span-6">
+              <label for="result" class="block text-base font-medium leading-6 text-gray-950"
+                >Pesan/ Plaintext</label
+              >
+              <div class="mt-2">
+                <input
+                  disabled
+                  type="text"
+                  name="result"
+                  id="result"
+                  :value="resultDecrypted"
+                  placeholder="Hasil Enkripsi atau Dekripsi"
+                  class="block placeholder:text-gray-500 w-full rounded-md border-0 py-1.5 px-1.5 text-gray-950 shadow-sm ring-1 ring-inset ring-gray-600"
+                />
+              </div>
+            </div>
+
+            <div class="col-span-6">
               <button
                 @click.prevent="handleDecryptClick"
                 class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
@@ -191,3 +258,13 @@ onMounted(() => {
     </div>
   </div>
 </template>
+
+<style scoped>
+@media (min-width: 1024px) {
+  form {
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+</style>
