@@ -4,6 +4,7 @@ import { ref, onMounted } from 'vue'
 const currentDate = new Date().getFullYear()
 const message = ref()
 const key = ref()
+const keyDecrypt = ref()
 const resultEncrypted = ref()
 const resultDecrypted = ref()
 const encrypted = ref('')
@@ -62,7 +63,7 @@ function encrypt(message, key) {
   return (resultEncrypted.value = encrypted)
 }
 
-function decrypt(enc, key) {
+function decrypt(enc, keyDecrypt) {
   let decrypted = ''
   let j = 0
   for (let i = 0; i < enc.length; i++) {
@@ -72,7 +73,7 @@ function decrypt(enc, key) {
 
     if (isUpperCase(currentLetter)) {
       let Ci = currentLetter.charCodeAt(0) - A
-      let Ki = key[j % key.length].toUpperCase().charCodeAt() - A
+      let Ki = keyDecrypt[j % keyDecrypt.length].toUpperCase().charCodeAt() - A
       let upperLetter = mod(Ci - Ki, 26)
 
       decrypted += String.fromCharCode(upperLetter + A)
@@ -80,7 +81,7 @@ function decrypt(enc, key) {
       j++
     } else if (isLowerCase(currentLetter)) {
       let Ci = currentLetter.charCodeAt() - a
-      let Ki = key[j % key.length].toLowerCase().charCodeAt() - a
+      let Ki = keyDecrypt[j % keyDecrypt.length].toLowerCase().charCodeAt() - a
       let lowerLetter = mod(Ci - Ki, 26)
 
       decrypted += String.fromCharCode(lowerLetter + a)
@@ -98,11 +99,11 @@ function handleEncryptClick() {
 }
 
 function handleDecryptClick() {
-  decrypted.value = decrypt(encrypted.value, key.value)
+  decrypted.value = decrypt(encrypted.value, keyDecrypt.value)
 }
 
 onMounted(() => {
-  currentDate, message, key, encrypt, decrypt, encrypted, decrypted
+  currentDate, message, key, encrypt, decrypt, encrypted, decrypted, keyDecrypt
 })
 </script>
 
@@ -218,7 +219,7 @@ onMounted(() => {
                   name="key"
                   id="key"
                   placeholder="Masukan Key Disini"
-                  v-model="key"
+                  v-model="keyDecrypt"
                   class="block bg-gray-200 w-full rounded-md border-0 py-1.5 px-1.5 text-gray-950 ring-1 ring-gray-600 placeholder:text-gray-400 focus:outline-none focus:ring focus:ring-gray-800"
                 />
               </div>
