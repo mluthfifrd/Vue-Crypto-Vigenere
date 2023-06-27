@@ -115,7 +115,7 @@ onMounted(() => {
       >
         <div>
           <h1 class="text-2xl text-center font-semibold leading-7 text-gray-950">
-            Proses Enkripsi
+            Proses Enkripsi (Pengirim)
           </h1>
 
           <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
@@ -187,7 +187,7 @@ onMounted(() => {
       >
         <div>
           <h1 class="text-2xl text-center font-semibold leading-7 text-gray-950">
-            Proses Dekripsi
+            Proses Dekripsi (Penerima)
           </h1>
 
           <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
