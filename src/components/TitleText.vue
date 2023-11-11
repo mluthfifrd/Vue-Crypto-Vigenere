@@ -11,7 +11,6 @@ defineProps({
   <div class="greetings">
     <h1 class="green">{{ msg }}</h1>
     <h3>Merupakan salah satu algoritma Kriptografi</h3>
-    <h3>1906058 - Muhamad Luthfi Farid Sidik - Informatika B</h3>
   </div>
 </template>
 
